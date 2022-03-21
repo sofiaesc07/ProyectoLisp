@@ -1,0 +1,5 @@
+(defun conversor()
+    (princ "Ingrese los Centigrados para convertirlos en Farenheit: ")
+    (setq grados (read))
+    (*(/ 5 9) ( - grados 32)))
+(conversor)
