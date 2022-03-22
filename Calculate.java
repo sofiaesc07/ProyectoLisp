@@ -4,16 +4,19 @@ import java.util.List;
 import java.util.HashMap;
 
 /**
- * Autor: Joshua Chicoj (20566) y Sofía Escobar (20489) 
- * Descripcion: 
- */
+* Autor: Joshua Chicoj (20566) y Sofía Escobar (20489) 
+* Descripcion: Encargada de hacer los calculos que se encuentren dentro del programa. 
+*/
 
 public class Calculate {
+    
+    //Variables
     private HashMap<String, String> variables;
     private ArrayList<String> operators;
     private ArrayList<String> characts;
     private ArrayList<String> numbers;
 
+    //Constructor
     public Calculate(Define def){
         operators= new ArrayList<String>(List.of("+", "-", "/", "*"));
         String caracteresString="qwertyuiopasdfghjklñzxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNM-_";
@@ -23,10 +26,7 @@ public class Calculate {
         variables= def.getVariables();
     }
 
-    /** 
-	 * @return String
-	 * Devuelve el codigo como un string
-	 */ 
+    //String encargado de las operaciones que se podrían encontrar en el codigo lisp
     public String operar (String Operar){
         boolean operatorFind=false;
         boolean operatorFind1=false;
@@ -47,8 +47,7 @@ public class Calculate {
                     operatorFind=true;
                     operador=caracter;
                 }
-            }else
-            if(!operatorFind1){
+            }else if(!operatorFind1){
                 if(!operatorExpression &&
                         !operatorNumb &&
                         !operatorVar) {
@@ -64,7 +63,6 @@ public class Calculate {
                         Op1= operar(temporal);
                         temporal="";
                         operatorFind1=true;
-
                     }
                 }if(operatorVar){
                     if(!caracter.equals(" ")) temporal=temporal+caracter;
@@ -72,7 +70,6 @@ public class Calculate {
                         Op1=variables.get(temporal);
                         temporal="";
                         operatorFind1=true;
-
                     }
                 }if(operatorNumb){
                     if(!caracter.equals(" ")) temporal=temporal+caracter;
@@ -89,8 +86,8 @@ public class Calculate {
                     operatorNumb=false;
                     operatorVar=false;
                 }
-            } else
-            if(!operatorFind2){   if(!operatorExpression &&
+            }else if(!operatorFind2){   
+                if(!operatorExpression &&
                     !operatorNumb &&
                     !operatorVar) {
                 if (caracter.equals("(")) {
@@ -122,14 +119,13 @@ public class Calculate {
                     }
                 }
             }
-        }
-        if(!operador.equals("")&&!Op1.equals("")&&!Op2.equals("")){
+        }if(!operador.equals("")&&!Op1.equals("")&&!Op2.equals("")){
             switch (operador){
                 case "*":return String.valueOf(Float.parseFloat(Op1)*Float.parseFloat(Op2));
+                case "/":return String.valueOf(Float.parseFloat(Op1)/Float.parseFloat(Op2));
                 case "+":return String.valueOf(Float.parseFloat(Op1)+Float.parseFloat(Op2));
                 case "-":return String.valueOf(Float.parseFloat(Op1)-Float.parseFloat(Op2));
-                case "/":return String.valueOf(Float.parseFloat(Op1)/Float.parseFloat(Op2));
-                default: return "Ocurrio un error inesperado";
+                default: return "Error";
             }
         }else return "";
     }

@@ -2,35 +2,39 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Autor: Joshua Chicoj (20566) y Sofía Escobar (20489) 
- * Descripcion: Responsable de la traducción de lisp a java, aqui se ejecuta el codigo.
- */
+* Autor: Joshua Chicoj (20566) y Sofía Escobar (20489) 
+* Descripcion: Responsable de la traducción de lisp a java, aqui se ejecuta el codigo.
+*/
 
 public class InterpreteLisp {
-
+	
+	//Variables
 	private Reader read = new Reader();
 	private Print print = new Print();
 	private Define def = new Define();
 	private Calculate calcu = new Calculate(def);
 	private Pred pre = new Pred(def);
 	private ArrayList < String > codigo = new ArrayList < String > ();
-
 	Scanner sc = new Scanner(System.in);
 
+	//Constructor
 	public InterpreteLisp() {
 		codigo = read.readDoc();
 	}
 
+	//Método que permite la impresión del código
 	public void Vista() {
 		for (String line: codigo) {
 			System.out.println(line);
 		}
 	}
 
+	//Encargado de ejecutrar el código ya traducido
 	public void ejecutar() {
 		process(codigo);
 	}
 
+	//Encargado de almacenar las funciones
 	public void process(ArrayList < String > codigo) {
 		String iterated = "";
 		String nameFunction = "";
@@ -43,7 +47,7 @@ public class InterpreteLisp {
 		boolean fir = false, sec = false;
 
 		for (String line: codigo) {
-			if(sec) {   //Hecho para ignorar la linea de un if que se active
+			if(sec) { 
 				sec = false;
 				continue;
 			}if(fir) {
@@ -60,33 +64,33 @@ public class InterpreteLisp {
 					} else if (x == ')') {
 						counter -= 1;
 					}
-				}if (iterated.contains("princ") && !inside) { //Por si se encuentra un princ
+				}if (iterated.contains("princ") && !inside) { 
 					System.out.println(print.pPrint(line));
 					iterated = "";
-				} else if (iterated.contains("print") && !inside) { //Por si se encuentra un print
+				}else if (iterated.contains("print") && !inside) {
 					System.out.println(print.pPrint(line));
 					iterated = "";
-				} else if (readerFuntion) {
+				}else if (readerFuntion) {
 					iterated = "";
 					funtionName = true;
 					counter = 1;
 					inside = true;
-				} else if (iterated.contains("setq") && !inside) { //Por si se encuentra un setq
+				}else if (iterated.contains("setq") && !inside) { 
 					iterated = "";
 					String[] values = print.pRead(line.replace("setq", ""));
 					def.saveVariable(values[0], values[1]);
-				} else if (iterated.contains("set'") && !inside) { //Por si se encuentra un set'
+				}else if (iterated.contains("set'") && !inside) { 
 					iterated = "";
 					String[] values = print.pRead(line.replace("set'", ""));
 					def.saveVariable(values[0], values[1]);
 					System.out.println(values[1]);
-				} else if(iterated.contains("if") && !inside) {
+				}else if(iterated.contains("if") && !inside) {
 					iterated = "";
-					boolean resultado = pre.Condicion(line.replace("if", "")); // Por si encuentra un if
+					boolean resultado = pre.Condicion(line.replace("if", "")); 
 					if(!resultado) {
 						sec = true;
 					}else fir = true;
-				} else if ((iterated.contains("/") || iterated.contains("-") || iterated.contains("+") || iterated.contains("*")) && !inside) {
+				}else if ((iterated.contains("/") || iterated.contains("-") || iterated.contains("+") || iterated.contains("*")) && !inside) {
 					calc = true;
 				}else if (!inside) {
 					if (iterated.length() > 2) {
@@ -140,10 +144,11 @@ public class InterpreteLisp {
 		}
 	}
 
+	//Copiar las funciones 
 	public ArrayList < String > copia(ArrayList < String > orginal) {
-		ArrayList < String > copy = new ArrayList < String > ();
-		for (String S: orginal) {
-			copy.add(S);
-		}return copy;
+		ArrayList < String > seco = new ArrayList < String > ();
+		for (String string: orginal) {
+			seco.add(string);
+		}return seco;
 	}
 }

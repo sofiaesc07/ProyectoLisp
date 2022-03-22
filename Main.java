@@ -1,7 +1,7 @@
 /**
- * Autor: Joshua Chicoj (20566) y Sofía Escobar (20489) 
- * Descripcion: Clase responsable de dar inicio al programa. 
- */
+* Autor: Joshua Chicoj (20566) y Sofía Escobar (20489) 
+* Descripcion: Clase responsable de dar inicio al programa. 
+*/
 
 public class Main {
     public static void main(String[] args) {
