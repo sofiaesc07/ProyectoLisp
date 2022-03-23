@@ -6,11 +6,11 @@ import java.util.HashMap;
 */
 
 public class Pred {
-
+	
 	//Variables
 	private HashMap<String, String> variables;
     
-	//Contructor
+	//Constructor
 	public Pred(Define def) {
 		variables = def.getVariables();
 	}
